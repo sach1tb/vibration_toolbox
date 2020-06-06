@@ -21,6 +21,8 @@ def _in_ipynb():
         shell = get_ipython().__class__.__name__
         if shell == 'ZMQInteractiveShell':  # Jupyter notebook or qtconsole?
             return True
+        elif shell == 'Shell': # Colab shell
+            return True
         elif shell == 'TerminalInteractiveShell':  # Terminal running IPython?
             return False
         else:
