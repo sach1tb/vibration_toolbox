@@ -102,7 +102,7 @@ def omegazeta2kc(omega=1, zeta=1):
     m=1 # assume
     k=omega**2*m
     c=2*zeta*omega*m
-    return [k c]
+    return [k, c]
 
 def phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     """Phase plot of free response of single degree of freedom system.
