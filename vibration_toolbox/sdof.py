@@ -49,9 +49,9 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     ----------
     m, c, k :  floats, optional
         mass, damping coefficient, stiffness
-    x0, v0:  floats, optional
+    x0, v0 :  floats, optional
         initial displacement, initial velocity
-    max_time: float, optional
+    max_time : float, optional
         end time for :math:`x(t)`
 
     Returns
@@ -97,6 +97,12 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     x, y = z_t[:, :].T
     return t, x, y, zeta, omega, omega_d, A
 
+
+def omegazeta2kc(omega=1, zeta=1):
+    m=1 # assume
+    k=omega**2*m
+    c=2*zeta*omega*m
+    return [k c]
 
 def phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     """Phase plot of free response of single degree of freedom system.
@@ -158,7 +164,7 @@ def phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0),
         print('phase_plot_i can only be used in an iPython notebook.')
 
 
-def _time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
+def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
     t, x, v, zeta, omega, omega_d, A = free_response(
         m, c, k, x0, v0, max_time)
     fig = plt.figure()
@@ -191,7 +197,7 @@ def _time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
                 r'$\lambda_2$ = %0.2f' %
                 (zeta * omega + omega * (zeta ** 2 - 1)))
     ax.legend()
-    # plt.show()
+    plt.show()
 
 
 def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
@@ -575,7 +581,7 @@ def steady_state_response(zs=0.1, rmin=0.0, rmax=2.0):
     ax2 = fig.add_subplot(212, sharex=ax1)
     plt.tight_layout()
 
-    ax1.set_ylabel('Normalized Amplitude (dB)')
+    ax1.set_ylabel('Normalized Amplitude')
     ax1.set_title('Normalized Amplitude vs Frequency Ratio')
 
     ax2.set_xlabel('Frequency Ratio')
